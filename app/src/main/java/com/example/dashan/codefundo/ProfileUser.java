@@ -124,6 +124,8 @@ public class ProfileUser extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
+            Intent i=new Intent(this,MapsActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
