@@ -22,11 +22,15 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import info.hoang8f.widget.FButton;
+
 public class ProfileUser extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String phone_no = "08807684211";
+    private static final String phone_no ="9549967701";
     private static final int REQ_CALL = 1;
+    private FButton fButton_contact;
+    private FButton fButton_maps,fButton_logout,fButton_webpage,fButton_facebook,fButton_info,fButton_call;
 
 
     @Override
@@ -44,7 +48,63 @@ public class ProfileUser extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
+        fButton_maps=(FButton) findViewById(R.id.maps_button);
+        fButton_maps.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(getApplicationContext(),MapsActivity.class);
+                startActivity(i);
+            }
+        });
+        fButton_logout=(FButton) findViewById(R.id.flogout_button);
+        fButton_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent i = new Intent(ProfileUser.this, Login.class);
+                startActivity(i);
+            }
+        });
+        fButton_webpage=(FButton) findViewById(R.id.fbutton_web);
+        fButton_webpage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse("http://www.watscooking.com/donate-now"));
+                startActivity(intent);
+            }
+        });
+        fButton_facebook=(FButton) findViewById(R.id.f_facebook_button);
+        fButton_facebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse("https://www.facebook.com/hungerfreeindian/?ref=br_rs"));
+                startActivity(intent);
+            }
+        });
+        fButton_info=(FButton) findViewById(R.id.infocon_button);
+        fButton_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),contacts.class);
+                startActivity(intent);
 
+            }
+        });
+        fButton_call=(FButton) findViewById(R.id.call_button_f);
+        final String phone="9408778546";
+        fButton_call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_CALL);
+                intent.setData(Uri.parse("tel:" + phone));
+            }
+        });
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -128,7 +188,18 @@ public class ProfileUser extends AppCompatActivity
             startActivity(i);
         } else if (id == R.id.nav_gallery) {
 
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.addCategory(Intent.CATEGORY_BROWSABLE);
+            intent.setData(Uri.parse("http://www.watscooking.com/donate-now"));
+            startActivity(intent);
         } else if (id == R.id.nav_slideshow) {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.addCategory(Intent.CATEGORY_BROWSABLE);
+            intent.setData(Uri.parse("https://www.facebook.com/hungerfreeindian/?ref=br_rs"));
+            startActivity(intent);
+
 
         } else if (id == R.id.nav_phone) {
             Intent intent = new Intent(Intent.ACTION_CALL);

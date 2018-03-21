@@ -12,7 +12,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="place_name to search"
-        android:textColorHint="@color/Green"
+        android:textColorHint="@color/LightBlue"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
 
@@ -49,7 +49,7 @@
         android:layout_below="@+id/TF_location"
         android:layout_toEndOf="@+id/B_hopistals"
         android:onClick="onClick"
-        android:text="Schools" />
+        android:text="NGO" />
 
     <Button
         android:id="@+id/B_restaurants"
@@ -58,7 +58,7 @@
         android:layout_below="@+id/TF_location"
         android:layout_toEndOf="@+id/B_schools"
         android:onClick="onClick"
-        android:text="Restautants" />
+        android:text="Restautant" />
 
     <Button
         android:id="@+id/B_to"

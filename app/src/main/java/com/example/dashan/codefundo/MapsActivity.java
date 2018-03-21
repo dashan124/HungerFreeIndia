@@ -38,7 +38,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
 import java.util.List;
@@ -53,12 +55,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LocationRequest locationRequest;
     private Location lastlocation;
 
+    private PlaceInfo mPlace;
+
     private LocationManager locationManager;
     private LocationListener locationListener;
     private Marker currentLocationmMarker;
     public static final int REQUEST_LOCATION_CODE = 99;
     int PROXIMITY_RADIUS = 10000;
     double latitude, longitude;
+    private Boolean mLocationPermissionsGranted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,7 +167,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
         currentLocationmMarker = mMap.addMarker(markerOptions);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-        mMap.animateCamera(CameraUpdateFactory.zoomBy(10));
+        mMap.moveCamera(CameraUpdateFactory.zoomBy(10));
 
         if (client != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(client, this);
@@ -201,7 +206,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
                             }
                         }
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -212,6 +217,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 //latitude=lastlocation.getLatitude();
                 //longitude=lastlocation.getLongitude();
+
                 String url = getUrl(latitude, longitude, hospital);
                 dataTransfer[0] = mMap;
                 dataTransfer[1] = url;
@@ -225,17 +231,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             case R.id.B_schools:
                 mMap.clear();
-                String school = "school";
+                String school = "ngo";
                 url = getUrl(latitude, longitude, school);
                 dataTransfer[0] = mMap;
                 dataTransfer[1] = url;
 
                 getNearbyPlacesData.execute(dataTransfer);
-                Toast.makeText(MapsActivity.this, "Showing Nearby Schools", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MapsActivity.this, "Showing Nearby Ngos", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.B_restaurants:
-                // mMap.clear();
-                String resturant = "restuarant";
+                mMap.clear();
+                String resturant = "restaurant";
                 url = getUrl(latitude, longitude, resturant);
                 dataTransfer[0] = mMap;
                 dataTransfer[1] = url;
@@ -264,6 +270,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         return googlePlaceUrl.toString();
     }
+
+
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {

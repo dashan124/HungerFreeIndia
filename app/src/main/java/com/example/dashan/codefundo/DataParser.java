@@ -26,6 +26,9 @@ public class DataParser {
         String longitude="";
         String reference="";
 
+        String rating="";
+        String website="";
+
         Log.d("DataParser","jsonobject ="+googlePlaceJson.toString());
 
 
@@ -35,6 +38,12 @@ public class DataParser {
             }
             if (!googlePlaceJson.isNull("vicinity")) {
                 vicinity = googlePlaceJson.getString("vicinity");
+            }
+            if(!googlePlaceJson.isNull("rating")){
+                rating=googlePlaceJson.getString("rating");
+            }
+            if(!googlePlaceJson.isNull("website")){
+                website=googlePlaceJson.getString("website");
             }
 
             latitude = googlePlaceJson.getJSONObject("geometry").getJSONObject("location").getString("lat");
@@ -47,6 +56,8 @@ public class DataParser {
             googlePlaceMap.put("lat", latitude);
             googlePlaceMap.put("lng", longitude);
             googlePlaceMap.put("reference", reference);
+            googlePlaceMap.put("rating",rating);
+            googlePlaceMap.put("website",website);
 
 
         }

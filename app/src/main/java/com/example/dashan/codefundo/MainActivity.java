@@ -48,7 +48,7 @@ private boolean isFirstTime(){
         mslideViewpager=(ViewPager) findViewById(R.id.view_pager);
         mDotsLayout=(LinearLayout) findViewById(R.id.dot_view);
         relativeLayout=(RelativeLayout) findViewById(R.id.relative_main);
-       // if(isFirstTime()) {
+       if(isFirstTime()) {
 
         mnext = (Button) findViewById(R.id.next_button);
         mskip = (Button) findViewById(R.id.skip_button);
@@ -81,11 +81,11 @@ private boolean isFirstTime(){
             }
         });
         }
-       /* else{
+       else{
             Intent i=new Intent(getApplicationContext(),Login.class);
             startActivity(i);
-        }*/
-    //}
+        }
+    }
     public void addDotsIndicator(int pos){
         Dots=new TextView[3];
         mDotsLayout.removeAllViews();

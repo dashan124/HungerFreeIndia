@@ -108,6 +108,14 @@ public class SignUp extends Activity implements View.OnClickListener{
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i=new Intent(getApplicationContext(),Login.class);
+        startActivity(i);
+        finish();
+    }
+
+    @Override
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.buttonSign_up: {
